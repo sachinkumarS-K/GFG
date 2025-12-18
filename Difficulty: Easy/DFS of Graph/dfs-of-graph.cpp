@@ -2,7 +2,7 @@ class Solution {
   public:
     void dfs(vector<vector<int>>& adj , vector<bool>&vis , vector<int>&ans , int curr){
         if(vis[curr])
-            return;
+            return ;
         vis[curr] = true;
         ans.push_back(curr);
         for(auto it : adj[curr]){
