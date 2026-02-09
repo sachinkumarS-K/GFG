@@ -1,23 +1,23 @@
 class Solution {
   public:
-    int solve(vector<int>&arr , int i , vector<int>&dp){
-        if(i >= arr.size()-1)
+    int solve(vector<int>&arr , int n , vector<int>&dp){
+        if(n == 0)
             return 0;
-        if(dp[i] != -1)
-            return dp[i];
-
-        int one = INT_MAX , two = INT_MAX;
-        if (i + 1 < arr.size())
-            one = abs(arr[i] - arr[i + 1]) + solve(arr, i + 1, dp);
-
-        if (i + 2 < arr.size())
-            two = abs(arr[i] - arr[i + 2]) + solve(arr, i + 2, dp);
-
-        return dp[i] = min(one, two);
+        if(dp[n] != -1)
+            return dp[n];
+            
+        int a = solve(arr , n-1 , dp) + abs(arr[n] - arr[n-1]);
+        int b = INT_MAX;
+        if(n > 1){
+            b = solve(arr , n-2 , dp) + abs(arr[n] - arr[n-2]);
+        }
+        return dp[n] = min(a , b);
+        
     }
     int minCost(vector<int>& height) {
         // Code here
-        vector<int>dp(height.size() , -1);
-       return solve(height, 0, dp);
+        int n = height.size();
+        vector<int>dp(n+1 , -1);
+        return solve(height , n-1 , dp);
     }
 };
