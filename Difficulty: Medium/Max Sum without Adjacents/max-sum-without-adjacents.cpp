@@ -2,15 +2,15 @@
 class Solution {
   public:
     // calculate the maximum sum with out adjacent
-    int solve(vector<int>&arr , int idx , vector<int>&dp){
-        if(idx >= arr.size())
+    int solve(vector<int>&arr , int i , vector<int>&dp){
+        if(i >= arr.size())
             return 0;
-        if(dp[idx] != -1)
-            return dp[idx];
-        int pick = arr[idx] + solve(arr , idx+2 , dp);
-        int notPick =  solve(arr , idx+1 , dp);
+        if(dp[i] != -1)
+            return dp[i];
         
-        return dp[idx] =  max(pick , notPick);
+        int inc = arr[i] + solve(arr , i+2 , dp);
+        int exc = solve(arr , i+1 , dp);
+        return dp[i] = max(inc , exc);
     }
     int findMaxSum(vector<int>& arr) {
         // code here
