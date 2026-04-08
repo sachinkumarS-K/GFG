@@ -3,22 +3,31 @@ class Solution {
     vector<int> findUnion(vector<int>& a, vector<int>& b) {
         // code here
         vector<int>ans;
-        unordered_set<int>st;
+        sort(a.begin() , a.end());
+        sort(b.begin() , b.end());
+        
         int i = 0 , j = 0 ;
         
-        while(i < a.size() || j < b.size()){
-            if(i < a.size() && st.find(a[i]) == st.end()){
-                st.insert(a[i]);
+        while(i < a.size() && j < b.size()){
+            if(a[i] < b[j]){
                 ans.push_back(a[i]);
+                i++;
             }
-            if(j < b.size() && st.find(b[j]) == st.end()){
-                st.insert(b[j]);
+            else{
                 ans.push_back(b[j]);
+                j++;
             }
-            i++;
-            j++;
+            while( i < a.size() && ans.back() == a[i])i++;
+            while( j < b.size() && ans.back() == b[j])j++;
         }
-        
+        while(i < a.size()){
+           ans.push_back(a[i++]);
+            while(i<a.size() && ans.back() == a[i])i++;
+        }
+         while(j < b.size()){
+            ans.push_back(b[j++]);
+            while(j < b.size() && ans.back() == b[j]) j++;  
+        }
         return ans;
     }
 };
